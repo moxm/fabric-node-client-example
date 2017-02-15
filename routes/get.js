@@ -51,14 +51,14 @@ router.delete('/map/:key', function (req, res) {
     console.log("delete > key: " + req.params.key);
     res.send("delete > key: " + req.params.key);
 })
-
+ */
 function init() {
     chain = client.newChain(config.chainName);
     chain.addOrderer(new Orderer(config.orderer.orderer_url));
     for (var i = 0; i < config.peers.length; i++) {
         chain.addPeer(new Peer(config.peers[i].peer_url));
     }
-}*/
+}
 
 
 function query(key, res) {
