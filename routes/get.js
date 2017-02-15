@@ -30,7 +30,7 @@ logger.setLevel('DEBUG');
 var client = new hfc();
 var chain;
 
-router.get('/map/:key', function (req, res) {
+router.get('/:key', function (req, res) {
     // res.send('Hello World!')
     console.log("get > key: " + req.params.key);
     console.log(req.body);

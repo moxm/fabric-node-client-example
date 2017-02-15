@@ -33,7 +33,7 @@ var chain;
 var eventhub;
 var tx_id = null;
 
-router.post('/map/', function (req, res) {
+router.post('/', function (req, res) {
     // res.send('Hello World!')
     console.log("put");
     console.log(req.body.key);

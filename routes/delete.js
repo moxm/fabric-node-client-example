@@ -33,7 +33,7 @@ var chain;
 var eventhub;
 var tx_id = null;
 
-router.delete('/map/:key', function (req, res) {
+router.delete('/:key', function (req, res) {
     // res.send('Hello World!')
     console.log("delete > key: " + req.params.key);
     console.log(req.body);
