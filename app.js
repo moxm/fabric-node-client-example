@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   // next(err);
-  res.send({code: '404', message: '接口不存在'});
+  res.send({code: 404, message: '接口不存在'});
 });
 
 // error handler
@@ -43,7 +43,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.send({code: '500', message: '服务异常'});
+  res.send({code: 500, message: '服务异常'});
 });
 
 module.exports = app;

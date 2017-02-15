@@ -95,12 +95,15 @@ function query(key, res) {
         }
 
         if (response_payloads.length == 0) {
-            res.send({code: '500', message: '值不存在'});
+            res.status = 500;
+            res.send({code: 500, message: '值不存在'});
         } else {
-            res.send({code: '200', message: '查询成功', body: response_payloads[0].toString('utf8')});
+            res.status = 200;
+            res.send({code: 200, message: '查询成功', body: response_payloads[0].toString('utf8')});
         }
     }).catch(function(err) {
-        res.send({code: '500', message: '查询异常'});
+        res.status = 500;
+        res.send({code: 500, message: '查询异常'});
             logger.error('Failed to end to end test with error:' + err.stack ? err.stack : err);
     });
 }

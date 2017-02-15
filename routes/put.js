@@ -84,14 +84,17 @@ function put(req, res) {
         return helper.processProposal(tx_id, eventhub, chain, results, 'put');
     }).then(function(response) {
         if (response.status === 'SUCCESS') {
-            res.send({code: '200', message: '保存成功'});
+            res.status = 200;
+            res.send({code: 200, message: '保存成功'});
             logger.info('The chaincode transaction has been successfully committed');
             process.exit();
         } else {
-            res.send({code: '500', message: '保存失败'});
+            res.status = 500;
+            res.send({code: 500, message: '保存失败'});
         }
     }).catch(function(err) {
-        res.send({code: '500', message: '保存异常'});
+        res.status = 500;
+        res.send({code: 500, message: '保存异常'});
         eventhub.disconnect();
         logger.error('Failed to invoke transaction due to error: ' + err.stack ? err.stack : err);
     });
