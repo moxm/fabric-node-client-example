@@ -83,14 +83,14 @@ function del(key, res) {
         return helper.processProposal(tx_id, eventhub, chain, results, 'delete');
     }).then(function(response) {
         if (response.status === 'SUCCESS') {
-            res.send({code: 'SUCCESS', message: '删除成功'});
+            res.send({code: '200', message: '删除成功'});
             logger.info('The chaincode transaction has been successfully committed');
             process.exit();
         } else {
-            res.send({code: 'ERROR', message: '删除失败'});
+            res.send({code: '500', message: '删除失败'});
         }
     }).catch(function(err) {
-        res.send({code: 'ERROR', message: '删除失败'});
+        res.send({code: '500', message: '删除失败'});
         eventhub.disconnect();
         logger.error('Failed to invoke transaction due to error: ' + err.stack ? err.stack : err);
     });
