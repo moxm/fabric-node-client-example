@@ -79,28 +79,25 @@ function del(key, res) {
         return chain.sendTransactionProposal(request);
     }).then(function(results) {
         logger.info('Successfully obtained proposal responses from endorsers');
-        let response = helper.processProposal(tx_id, eventhub, chain, results, 'delete');
-        if (response.status === 'SUCCESS') {
-            res.status = 200;
-            res.send({code: 200, message: '保存成功'});
-            logger.info('http response success');
-        } else {
-            res.status = 500;
-            res.send({code: 500, message: '保存失败'});
-            logger.info('http response error');
-        }
-
-        return helper.processCommitter(tx_id, eventhub, chain, results, 'delete');
+        return helper.processProposal(tx_id, eventhub, chain, results, 'delete');
     }).then(function(response) {
         if (response.status === 'SUCCESS') {
             res.status = 200;
             res.send({code: 200, message: '删除成功'});
+            logger.info('http response success');
+        } else {
+            res.status = 500;
+            res.send({code: 500, message: '删除失败'});
+            logger.info('http response error');
+        }
+        return helper.processCommitter(tx_id, eventhub, 'delete');
+    }).then(function(response) {
+        if (response.status === 'SUCCESS') {
             logger.info('The chaincode transaction has been successfully committed');
             // process.exit();
             eventhub.disconnect();
         } else {
-            res.status = 500;
-            res.send({code: 500, message: '删除失败'});
+            eventhub.disconnect();
         }
     }).catch(function(err) {
         res.status = 500;

@@ -91,7 +91,7 @@ function put(req, res) {
             res.send({code: 500, message: '保存失败'});
             logger.info('http response error');
         }
-        return helper.processCommitter(tx_id, eventhub, chain, results, 'put');
+        return helper.processCommitter(tx_id, eventhub, 'put');
     }).then(function(response) {
         if (response.status === 'SUCCESS') {
             logger.info('The chaincode transaction has been successfully committed');

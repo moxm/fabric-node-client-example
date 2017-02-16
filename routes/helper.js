@@ -110,7 +110,7 @@ module.exports.processProposal = function(tx_id, eventhub, chain, results, propo
     }
 };
 
-module.exports.processCommitter = function(tx_id, eventhub, chain, results, proposalType) {
+module.exports.processCommitter = function(tx_id, eventhub, proposalType) {
 
     // set the transaction listener and set a timeout of 30sec
     // if the transaction did not get committed within the timeout period,
