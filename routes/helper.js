@@ -15,17 +15,17 @@
  */
 'use strict';
 
-let log4js = require('log4js');
-let logger = log4js.getLogger('Helper');
+var log4js = require('log4js');
+var logger = log4js.getLogger('Helper');
 
-let path = require('path');
-let util = require('util');
+var path = require('path');
+var util = require('util');
 
-let User = require('fabric-client/lib/User.js');
-let utils = require('fabric-client/lib/utils.js');
-let copService = require('fabric-ca-client/lib/FabricCAClientImpl.js');
+var User = require('fabric-client/lib/User.js');
+var utils = require('fabric-client/lib/utils.js');
+var copService = require('fabric-ca-client/lib/FabricCAClientImpl.js');
 
-let config = require('./config.json');
+var config = require('./config.json');
 
 logger.setLevel('DEBUG');
 

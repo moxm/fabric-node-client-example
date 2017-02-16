@@ -5,22 +5,22 @@
  */
 'use strict';
 
-let express = require('express');
-let bodyParser = require('body-parser');
-let log4js = require('log4js');
-let logger = log4js.getLogger('INVOKE');
+var express = require('express');
+var bodyParser = require('body-parser');
+var log4js = require('log4js');
+var logger = log4js.getLogger('INVOKE');
 
-let hfc = require('fabric-client');
-let utils = require('fabric-client/lib/utils.js');
-let Peer = require('fabric-client/lib/Peer.js');
-let Orderer = require('fabric-client/lib/Orderer.js');
-let EventHub = require('fabric-client/lib/EventHub.js');
+var hfc = require('fabric-client');
+var utils = require('fabric-client/lib/utils.js');
+var Peer = require('fabric-client/lib/Peer.js');
+var Orderer = require('fabric-client/lib/Orderer.js');
+var EventHub = require('fabric-client/lib/EventHub.js');
 
-let config = require('./config.json');
-let helper = require('./helper.js');
+var config = require('./config.json');
+var helper = require('./helper.js');
 
-let express = require('express');
-let router = express.Router();
+var express = require('express');
+var router = express.Router();
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -28,10 +28,10 @@ router.use(bodyParser.urlencoded({ extended: false }));
 logger.setLevel('DEBUG');
 
 
-let client = new hfc();
-let chain;
-let eventhub;
-let tx_id = null;
+var client = new hfc();
+var chain;
+var eventhub;
+var tx_id = null;
 
 router.post('/', function (req, res) {
     // res.send('Hello World!')
