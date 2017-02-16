@@ -80,18 +80,27 @@ function put(req, res) {
         return chain.sendTransactionProposal(request);
     }).then(function(results) {
         logger.info('Successfully obtained proposal responses from endorsers');
-
-        return helper.processProposal(tx_id, eventhub, chain, results, 'put');
-    }).then(function(response) {
+        let response = helper.processProposal(tx_id, eventhub, chain, results, 'put');
         if (response.status === 'SUCCESS') {
             res.status = 200;
             res.send({code: 200, message: '保存成功'});
+            logger.info('http response success');
+        } else {
+            res.status = 500;
+            res.send({code: 500, message: '保存失败'});
+            logger.info('http response error');
+        }
+
+        return helper.processCommitter(tx_id, eventhub, chain, results, 'put');
+    }).then(function(response) {
+        if (response.status === 'SUCCESS') {
             logger.info('The chaincode transaction has been successfully committed');
             // process.exit();
             eventhub.disconnect();
         } else {
             res.status = 500;
             res.send({code: 500, message: '保存失败'});
+            eventhub.disconnect();
         }
     }).catch(function(err) {
         res.status = 500;
