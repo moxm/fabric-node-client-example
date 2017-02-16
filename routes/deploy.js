@@ -1,22 +1,7 @@
 /**
- * Copyright 2016 IBM All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ * Created by Neel on 2017/2/14.
  */
-// This is Sample end-to-end standalone program that focuses on exercising all
-// parts of the fabric APIs in a happy-path scenario
 'use strict';
-
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -32,8 +17,6 @@ var EventHub = require('fabric-client/lib/EventHub.js');
 var config = require('./config.json');
 var helper = require('./helper.js');
 
-
-var express = require('express');
 var router = express.Router();
 
 router.use(bodyParser.json());
@@ -68,7 +51,7 @@ function init(chainName) {
     eventhub = new EventHub();
     eventhub.setPeerAddr(config.events[0].event_url);
     eventhub.connect();
-    for (var i = 0; i < config.peers.length; i++) {
+    for (let i = 0; i < config.peers.length; i++) {
         chain.addPeer(new Peer(config.peers[i].peer_url));
     }
 }
@@ -83,28 +66,26 @@ function deploy(req, res) {
     }).then(function(store) {
         client.setStateStore(store);
         return helper.getSubmitter(client);
-    }).then(
-        function(admin) {
-            logger.info('Successfully obtained enrolled user to deploy the chaincode');
+    }).then(function(admin) {
+        logger.info('Successfully obtained enrolled user to deploy the chaincode');
 
-            logger.info('Executing Deploy');
-            tx_id = helper.getTxId();
-            var nonce = utils.getNonce();
-            // var args = helper.getArgs(config.deployRequest.args);
-            var args = req.body.args ? req.body.args : [];
-            // send proposal to endorser
-            var request = {
-                chaincodePath: config.chaincodePath + req.body.chaincodeName,
-                chaincodeId: req.params.name,
-                fcn: config.deployRequest.functionName,
-                args: args,
-                chainId: req.params.channel,
-                txId: tx_id,
-                nonce: nonce,
-            };
-            return chain.sendDeploymentProposal(request);
-        }
-    ).then(function(results) {
+        logger.info('Executing Deploy');
+        tx_id = helper.getTxId();
+        let nonce = utils.getNonce();
+        // var args = helper.getArgs(config.deployRequest.args);
+        let args = req.body.args ? req.body.args : [];
+        // send proposal to endorser
+        let request = {
+            chaincodePath: config.chaincodePath + req.body.chaincodeName,
+            chaincodeId: req.params.name,
+            fcn: config.deployRequest.functionName,
+            args: args,
+            chainId: req.params.channel,
+            txId: tx_id,
+            nonce: nonce,
+        };
+        return chain.sendDeploymentProposal(request);
+    }).then(function(results) {
         logger.info('Successfully obtained proposal responses from endorsers');
         return helper.processProposal(tx_id, eventhub, chain, results, 'deploy');
     }).then(function(response) {
