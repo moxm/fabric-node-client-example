@@ -113,3 +113,5 @@ function deploy(req, res) {
     );
 }
 
+
+module.exports = router;
