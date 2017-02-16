@@ -88,7 +88,22 @@ module.exports.processProposal = function(tx_id, eventhub, chain, results, propo
             logger.info('Successfully obtained transaction endorsements.');
         }
 
-        return proposalResponses;
+        var request = {
+            proposalResponses: proposalResponses,
+            proposal: proposal,
+            header: header
+        };
+
+        // set the transaction listener and set a timeout of 30sec
+        // if the transaction did not get committed within the timeout period,
+        // fail the test
+        var deployId = tx_id.toString();
+        var sendPromise = chain.sendTransaction(request);
+        return Promise.all([sendPromise]).then((results) => {
+            return results[0]; // the first returned value is from the 'sendPromise' which is from the 'sendTransaction()' call
+        }).catch((err) => {
+            logger.error('Failed to send transaction and get notifications within the timeout period. ' + err.stack ? err.stack : err);
+        });
 
     } else {
         logger.error('Failed to send Proposal or receive valid response. Response null or status is not 200. exiting...');
@@ -97,16 +112,6 @@ module.exports.processProposal = function(tx_id, eventhub, chain, results, propo
 };
 
 module.exports.processCommitter = function(tx_id, eventhub, chain, results, proposalType) {
-    var proposalResponses = results[0];
-    //logger.debug('deploy proposalResponses:'+JSON.stringify(proposalResponses));
-    var proposal = results[1];
-    var header = results[2];
-
-    var request = {
-        proposalResponses: proposalResponses,
-        proposal: proposal,
-        header: header
-    };
 
     // set the transaction listener and set a timeout of 30sec
     // if the transaction did not get committed within the timeout period,
@@ -123,9 +128,9 @@ module.exports.processCommitter = function(tx_id, eventhub, chain, results, prop
         });
     });
 
-    var sendPromise = chain.sendTransaction(request);
-    return Promise.all([sendPromise, txPromise]).then((results) => {
-        return results[0]; // the first returned value is from the 'sendPromise' which is from the 'sendTransaction()' call
+    // var sendPromise = chain.sendTransaction(request);
+    return Promise.all([txPromise]).then((results) => {
+        return results[0]; // the first returned value is from the 'txPromise' which is from the 'sendTransaction()' call
     }).catch((err) => {
         logger.error('Failed to send transaction and get notifications within the timeout period. ' + err.stack ? err.stack : err);
     });
