@@ -1,9 +1,9 @@
 {
   "chainName":"fabric-storage",
-  "chaincodeID":"storagecc",
-  "channelID":"myc1",
+  "chaincodeID":"store",
+  "channelID":"medical",
   "goPath":"../../test/fixtures",
-  "chaincodePath":"github.com/fabric-example/go/moxm_chaincode_storage",
+  "chaincodePath":"github.com/fabric-example/go/",
   "keyValueStore":"/tmp/fabric-client-kvs",
   "waitTime":"30000",
   "caserver":{

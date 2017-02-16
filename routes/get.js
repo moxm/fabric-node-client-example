@@ -18,7 +18,6 @@ var Orderer = require('fabric-client/lib/Orderer.js');
 var config = require('./config.json');
 var helper = require('./helper.js');
 
-var express = require('express');
 var router = express.Router();
 
 router.use(bodyParser.json());

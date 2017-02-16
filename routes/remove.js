@@ -19,7 +19,6 @@ var EventHub = require('fabric-client/lib/EventHub.js');
 var config = require('./config.json');
 var helper = require('./helper.js');
 
-var express = require('express');
 var router = express.Router();
 
 router.use(bodyParser.json());
