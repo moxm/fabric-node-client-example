@@ -11,6 +11,12 @@
     "fabric-client example",
     "balance-transfer node sample"
   ],
+  "devDependencies": {
+    "fabric-ca-client": "^0.1.2",
+    "fabric-client": "^0.1.3",
+    "log4js": "^0.6.38",
+    "winston": "^2.2.0"
+  },
   "dependencies": {
     "body-parser": "~1.16.0",
     "cookie-parser": "~1.4.3",
@@ -23,11 +29,5 @@
   "engines": {
     "node": ">=4.5.0",
     "npm": ">=2.15.9"
-  },
-  "devDependencies": {
-    "fabric-client": "^0.1.0",
-    "fabric-ca-client": "^0.1.0",
-    "log4js": "^0.6.38",
-    "winston": "^2.2.0"
   }
 }

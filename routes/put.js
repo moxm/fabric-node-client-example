@@ -87,7 +87,8 @@ function put(req, res) {
             res.status = 200;
             res.send({code: 200, message: '保存成功'});
             logger.info('The chaincode transaction has been successfully committed');
-            process.exit();
+            // process.exit();
+            eventhub.disconnect();
         } else {
             res.status = 500;
             res.send({code: 500, message: '保存失败'});

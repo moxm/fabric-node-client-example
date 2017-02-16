@@ -86,7 +86,8 @@ function del(key, res) {
             res.status = 200;
             res.send({code: 200, message: '删除成功'});
             logger.info('The chaincode transaction has been successfully committed');
-            process.exit();
+            // process.exit();
+            eventhub.disconnect();
         } else {
             res.status = 500;
             res.send({code: 500, message: '删除失败'});
