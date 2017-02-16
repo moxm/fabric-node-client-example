@@ -57,9 +57,9 @@ function init(chainName) {
 }
 
 function deploy(req, res) {
-    if (!process.env.GOPATH){
+    // if (!process.env.GOPATH){
         process.env.GOPATH = config.goPath;
-    }
+    // }
 
     hfc.newDefaultKeyValueStore({
         path: config.keyValueStore
@@ -98,7 +98,7 @@ function deploy(req, res) {
             res.send({code: 500, message: '部署失败'});
             logger.info('http response error');
         }
-        return helper.processCommitter(tx_id, eventhub, 'delete');
+        return helper.processCommitter(tx_id, eventhub, 'deploy');
     }).then(function(response) {
         if (response.status === 'SUCCESS') {
             logger.info('Successfully sent deployment transaction to the orderer.');
