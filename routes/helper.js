@@ -97,7 +97,6 @@ module.exports.processProposal = function(tx_id, eventhub, chain, results, propo
         // set the transaction listener and set a timeout of 30sec
         // if the transaction did not get committed within the timeout period,
         // fail the test
-        var deployId = tx_id.toString();
         var sendPromise = chain.sendTransaction(request);
         return Promise.all([sendPromise]).then((results) => {
             return results[0]; // the first returned value is from the 'sendPromise' which is from the 'sendTransaction()' call

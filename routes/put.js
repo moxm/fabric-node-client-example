@@ -80,7 +80,8 @@ function put(req, res) {
         return chain.sendTransactionProposal(request);
     }).then(function(results) {
         logger.info('Successfully obtained proposal responses from endorsers');
-        let response = helper.processProposal(tx_id, eventhub, chain, results, 'put');
+        return helper.processProposal(tx_id, eventhub, chain, results, 'put');
+    }).then(function(response) {
         if (response.status === 'SUCCESS') {
             res.status = 200;
             res.send({code: 200, message: '保存成功'});
@@ -90,7 +91,6 @@ function put(req, res) {
             res.send({code: 500, message: '保存失败'});
             logger.info('http response error');
         }
-
         return helper.processCommitter(tx_id, eventhub, chain, results, 'put');
     }).then(function(response) {
         if (response.status === 'SUCCESS') {
