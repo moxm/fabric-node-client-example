@@ -2,7 +2,7 @@
   "chainName":"fabric-storage",
   "chaincodeID":"store",
   "channelID":"medical",
-  "goPath":"../../test/fixtures",
+  "goPath":"../../src",
   "chaincodePath":"github.com/fabric-example/go/",
   "keyValueStore":"/tmp/fabric-client-kvs",
   "waitTime":"30000",
