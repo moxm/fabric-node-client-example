@@ -5,21 +5,21 @@
  */
 'use strict';
 
-var express = require('express');
-var bodyParser = require('body-parser');
-var log4js = require('log4js');
-var logger = log4js.getLogger('QUERY');
+let express = require('express');
+let bodyParser = require('body-parser');
+let log4js = require('log4js');
+let logger = log4js.getLogger('QUERY');
 
-var hfc = require('fabric-client');
-var utils = require('fabric-client/lib/utils.js');
-var Peer = require('fabric-client/lib/Peer.js');
-var Orderer = require('fabric-client/lib/Orderer.js');
+let hfc = require('fabric-client');
+let utils = require('fabric-client/lib/utils.js');
+let Peer = require('fabric-client/lib/Peer.js');
+let Orderer = require('fabric-client/lib/Orderer.js');
 
-var config = require('./config.json');
-var helper = require('./helper.js');
+let config = require('./config.json');
+let helper = require('./helper.js');
 
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -27,8 +27,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
 logger.setLevel('DEBUG');
 
 
-var client = new hfc();
-var chain;
+let client = new hfc();
+let chain;
 
 router.get('/:key', function (req, res) {
     // res.send('Hello World!')
@@ -55,7 +55,7 @@ router.delete('/map/:key', function (req, res) {
 function init() {
     chain = client.newChain(config.chainName);
     chain.addOrderer(new Orderer(config.orderer.orderer_url));
-    for (var i = 0; i < config.peers.length; i++) {
+    for (let i = 0; i < config.peers.length; i++) {
         chain.addPeer(new Peer(config.peers[i].peer_url));
     }
 }
@@ -72,7 +72,7 @@ function query(key, res) {
 
         logger.info('Executing Query');
         let targets = [];
-        for (var i = 0; i < config.peers.length; i++) {
+        for (let i = 0; i < config.peers.length; i++) {
             targets.push(config.peers[i]);
         }
         let args = ["query", key.params.key];
