@@ -33,18 +33,18 @@ var chain;
 var eventhub;
 var tx_id = null;
 
-router.delete('/:key', function (req, res) {
+router.delete('/:channel/:name/:key', function (req, res) {
     // res.send('Hello World!')
     console.log("delete > key: " + req.params.key);
     console.log(req.body);
     if (!chain) {
-        init();
+        init(req.params.name);
     }
-    del(req, res);
+    remove(req, res);
 })
 
-function init() {
-    chain = client.newChain(config.chainName);
+function init(chainName) {
+    chain = client.newChain(chainName);
     chain.addOrderer(new Orderer(config.orderer.orderer_url));
     eventhub = new EventHub();
     eventhub.setPeerAddr(config.events[0].event_url);
@@ -53,7 +53,7 @@ function init() {
         chain.addPeer(new Peer(config.peers[i].peer_url));
     }
 }
-function del(key, res) {
+function remove(req, res) {
     hfc.newDefaultKeyValueStore({
         path: config.keyValueStore
     }).then(function(store) {
@@ -66,13 +66,13 @@ function del(key, res) {
         tx_id = helper.getTxId();
         let nonce = utils.getNonce();
 
-        let args = ["delete", key.params.key];
+        let args = ["delete", req.params.key];
         // send proposal to endorser
         let request = {
             chaincodeId: config.chaincodeID,
             fcn: config.deleteRequest.functionName,
             args: args,
-            chainId: config.channelID,
+            chainId: req.params.channel,
             txId: tx_id,
             nonce: nonce
         };

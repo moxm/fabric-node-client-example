@@ -33,19 +33,19 @@ var chain;
 var eventhub;
 var tx_id = null;
 
-router.post('/', function (req, res) {
+router.post('/:channel/:name', function (req, res) {
     // res.send('Hello World!')
     console.log("put");
     console.log(req.body.key);
     console.log(req.body.value);
     if (!chain) {
-        init();
+        init(req.params.name);
     }
     put(req, res);
 })
 
-function init() {
-    chain = client.newChain(config.chainName);
+function init(chainName) {
+    chain = client.newChain(chainName);
     chain.addOrderer(new Orderer(config.orderer.orderer_url));
     eventhub = new EventHub();
     eventhub.setPeerAddr(config.events[0].event_url);
@@ -73,7 +73,7 @@ function put(req, res) {
             chaincodeId: config.chaincodeID,
             fcn: config.deleteRequest.functionName,
             args: args,
-            chainId: config.channelID,
+            chainId: req.params.channel,
             txId: tx_id,
             nonce: nonce
         };

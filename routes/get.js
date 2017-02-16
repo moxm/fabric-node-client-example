@@ -30,12 +30,14 @@ logger.setLevel('DEBUG');
 var client = new hfc();
 var chain;
 
-router.get('/:key', function (req, res) {
+router.get('/:channel/:name/:key', function (req, res) {
     // res.send('Hello World!')
+    console.log("get > channel: " + req.params.channel);
     console.log("get > key: " + req.params.key);
+    console.log("get > chainName: " + req.params.name);
     console.log(req.body);
     if (!chain) {
-        init();
+        init(req.params.name);
     }
     query(req, res);
 })
@@ -52,8 +54,8 @@ router.delete('/map/:key', function (req, res) {
     res.send("delete > key: " + req.params.key);
 })
  */
-function init() {
-    chain = client.newChain(config.chainName);
+function init(chainName) {
+    chain = client.newChain(chainName);
     chain.addOrderer(new Orderer(config.orderer.orderer_url));
     for (let i = 0; i < config.peers.length; i++) {
         chain.addPeer(new Peer(config.peers[i].peer_url));
@@ -61,7 +63,7 @@ function init() {
 }
 
 
-function query(key, res) {
+function query(req, res) {
     hfc.newDefaultKeyValueStore({
         path: config.keyValueStore
     }).then(function(store) {
@@ -75,13 +77,13 @@ function query(key, res) {
         for (let i = 0; i < config.peers.length; i++) {
             targets.push(config.peers[i]);
         }
-        let args = ["query", key.params.key];
+        let args = ["query", req.params.key];
 
         //chaincode query request
         let request = {
             targets: targets,
             chaincodeId: config.chaincodeID,
-            chainId: config.channelID,
+            chainId: req.params.channel,
             txId: utils.buildTransactionID(),
             nonce: utils.getNonce(),
             fcn: config.queryRequest.functionName,

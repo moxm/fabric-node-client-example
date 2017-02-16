@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var get = require('./routes/get');
 var put = require('./routes/put');
-var del = require('./routes/delete');
+var remove = require('./routes/remove');
 
 var app = express();
 
@@ -23,9 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/map', put);
-app.use('/map', get);
-app.use('/map', del);
+app.use('/', put);
+app.use('/', get);
+app.use('/', remove);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
