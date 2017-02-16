@@ -41,9 +41,6 @@ router.put('/:channel/:name/deploy', function (req, res) {
     deploy(req, res);
 })
 
-logger.setLevel('DEBUG');
-
-
 
 function init(chainName) {
     chain = client.newChain(chainName);
