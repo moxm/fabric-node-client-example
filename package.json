@@ -12,8 +12,9 @@
     "balance-transfer node sample"
   ],
   "devDependencies": {
-    "fabric-ca-client": "^0.1.2",
-    "fabric-client": "^0.1.3",
+    "hashtable": "file:./node_modules/hashtable",
+    "fabric-ca-client": "file:./node_modules/fabric-sdk-node/fabric-ca-client",
+    "fabric-client": "file:./node_modules/fabric-sdk-node/fabric-client",
     "log4js": "^0.6.38",
     "winston": "^2.2.0"
   },
