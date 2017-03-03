@@ -16,6 +16,7 @@ services:
       - CORE_PEER_ENDORSER_ENABLED=true
       - CORE_PEER_ID=peer4
       - CORE_PEER_PROFILE_ENABLED=true
+      - CORE_PEER_DISCOVERY_ROOTNODE=peer0:7051
       - CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050
       - CORE_PEER_GOSSIP_ORGLEADER=true
       - CORE_PEER_GOSSIP_IGNORESECURITY=true
@@ -23,7 +24,7 @@ services:
 
     ports:
       - 8058:7051
-    command: peer node start --peer-defaultchain=false
+    command: peer node start
     volumes:
         - /var/run/:/host/var/run/
         - ./tmp/peer2:/etc/hyperledger/fabric/msp/sampleconfig
