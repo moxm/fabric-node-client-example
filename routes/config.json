@@ -21,6 +21,9 @@
     },
     {
       "peer_url":"grpc://localhost:8056"
+    },
+    {
+      "peer_url":"grpc://localhost:8057"
     }
   ],
   "events":[
