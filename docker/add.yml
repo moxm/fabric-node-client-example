@@ -4,8 +4,8 @@ networks:
 
 services:
 
-  peer3:
-    container_name: peer3
+  peer5:
+    container_name: peer5
     image: sfhackfest22017/fabric-peer:x86_64-0.7.0-snapshot-c7b3fe0
     environment:
       - CORE_PEER_ADDRESSAUTODETECT=true
@@ -14,7 +14,7 @@ services:
       - CORE_PEER_NETWORKID=peer0
       - CORE_NEXT=true
       - CORE_PEER_ENDORSER_ENABLED=true
-      - CORE_PEER_ID=peer3
+      - CORE_PEER_ID=peer5
       - CORE_PEER_PROFILE_ENABLED=true
       - CORE_PEER_DISCOVERY_ROOTNODE=peer0:7051
       - CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer:7050
@@ -23,10 +23,12 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
 
     ports:
-      - 8057:7051
+      - 8059:7051
     command: peer node start
     volumes:
         - /var/run/:/host/var/run/
-        - ./tmp/peer:/etc/hyperledger/fabric/msp/sampleconfig
+        - ./tmp/peer2:/etc/hyperledger/fabric/msp/sampleconfig
     networks:
       - bridge
+
+
