@@ -23,7 +23,7 @@
       "peer_url":"grpc://localhost:8056"
     },
     {
-      "peer_url":"grpc://localhost:8057"
+      "peer_url":"grpc://localhost:8058"
     }
   ],
   "events":[
