@@ -47,7 +47,7 @@ function init() {
     chain = client.newChain("fabric-client-query");
     chain.addOrderer(new Orderer(config.orderer.orderer_url));
     for (var i = 0; i < config.peers.length; i++) {
-	chain.addPeer(new Peer(config.peers[i].peer_url));
+		chain.addPeer(new Peer(config.peers[i].peer_url));
     }
 }
 
